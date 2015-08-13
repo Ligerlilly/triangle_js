@@ -3,7 +3,7 @@
   var assert = require('assert');
 
   var triangle = function(side_a, side_b, side_c){
-    var isTriangle, isEquilateral, isIsosceles;
+    var isTriangle, isEquilateral, isIsosceles, isScalene;
 
 
     isTriangle = function(){
@@ -44,9 +44,19 @@
 
     };
 
+    isScalene = function(){
+      if (!this.isEquilateral() && !this.isIsosceles()){
+        return true;
+      }
+      else {
+        return false;
+      }
+    };
+
     return { isTriangle    : isTriangle,
              isEquilateral : isEquilateral,
-             isIsosceles   :  isIsosceles };
+             isIsosceles   : isIsosceles,
+             isScalene     : isScalene };
   };
 
 
@@ -86,5 +96,15 @@
 
     it('returns false if no sides are equal', function(){
       assert.equal(triangle(3, 4, 5).isIsosceles(), false);
+    });
+  });
+
+  describe('Triangle#isScalene', function(){
+    it('returns true if no sides are equal', function(){
+      assert.equal(triangle(1, 2, 5).isScalene(), true);
+    });
+
+    it('returns false if any sides are equal', function(){
+      assert.equal(triangle(8,8,3).isScalene(), false);
     });
   });
