@@ -1,10 +1,9 @@
 
-  //require('triangle.js');
 
   var assert = require('assert');
 
   var triangle = function(side_a, side_b, side_c){
-    var isTriangle;
+    var isTriangle, isEquilateral, isIsosceles;
 
 
     isTriangle = function(){
@@ -34,10 +33,21 @@
       }
     };
 
-    return { isTriangle    : isTriangle,
-             isEquilateral : isEquilateral };
-  };
+    isIsosceles = function(){
+      var sides2 = (side_a == side_b || side_a == side_c || side_c == side_b);
+      if (sides2 && !this.isEquilateral()){
+        return true;
+      }
+      else {
+        return false;
+      }
 
+    };
+
+    return { isTriangle    : isTriangle,
+             isEquilateral : isEquilateral,
+             isIsosceles   :  isIsosceles };
+  };
 
 
 
@@ -62,5 +72,19 @@
 
     it('returns false if all the sides are not equal',function() {
       assert.equal(triangle(3, 3, 5).isEquilateral(), false);
+    });
+  });
+
+  describe('Triangle#isIsosceles', function(){
+    it('returns true if exactly 2 sides are equal', function(){
+      assert.equal(triangle(3, 3, 5).isIsosceles(), true);
+    });
+
+    it('returns false all sides are equal', function(){
+      assert.equal(triangle(3, 3, 3).isIsosceles(), false);
+    });
+
+    it('returns false if no sides are equal', function(){
+      assert.equal(triangle(3, 4, 5).isIsosceles(), false);
     });
   });
