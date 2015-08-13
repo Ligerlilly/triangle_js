@@ -1,9 +1,9 @@
 
-  //require('../lib/triangle.js');
+  //require('triangle.js');
 
   var assert = require('assert');
 
-  function Triangle(side_a, side_b, side_c){
+  var triangle = function(side_a, side_b, side_c){
     var isTriangle;
 
 
@@ -36,40 +36,31 @@
 
     return { isTriangle    : isTriangle,
              isEquilateral : isEquilateral };
-  }
+  };
+
 
 
 
   describe('Triangle#isTriangle', function() {
     it('has three sides and returns true', function() {
-      var triangle;
-      triangle = new Triangle(3, 3, 3);
-      assert.equal(triangle.isTriangle(), true);
+      assert.equal(triangle(3, 3, 3).isTriangle(), true);
     });
 
     it('doesnt have three sides returns false', function(){
-      var triangle;
-      triangle = new Triangle(3, 3, 0);
-      assert.equal(triangle.isTriangle(), false);
+      assert.equal(triangle(3, 3, 0).isTriangle(), false);
     });
 
     it('the sum of any two sides are greater than the third side, return false',function(){
-      var triangle;
-      triangle = new Triangle(2, 2, 7);
-      assert.equal(triangle.isTriangle(), false);
+      assert.equal(triangle(2, 2, 7).isTriangle(), false);
     });
   });
 
   describe('Triangle#isEquilateral', function(){
     it('returns true if all the sides are equal', function(){
-      var triangle;
-      triangle = new Triangle(3, 3, 3);
-      assert.equal(triangle.isEquilateral(), true);
+      assert.equal(triangle(3, 3, 3).isEquilateral(), true);
     });
 
     it('returns false if all the sides are not equal',function() {
-      var triangle;
-      triangle = new Triangle(3, 3, 5);
-      assert.equal(triangle.isEquilateral(), false);
+      assert.equal(triangle(3, 3, 5).isEquilateral(), false);
     });
   });
